@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const userschema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: [true, "Please Check the data entry not specified!!"]
-    },
     username : {
         type: String,
         required: [true, "Please Check the data entry not specified!!"],
@@ -20,6 +16,9 @@ const userschema = new mongoose.Schema({
     }],
     admin: {
         type: Boolean
+    },
+    refreshToken: {
+        type: String,
     }
 
     

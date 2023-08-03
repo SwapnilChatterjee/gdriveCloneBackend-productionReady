@@ -10,12 +10,13 @@ module.exports.loginGETController = (req,res)=>{
 }
 
 module.exports.loginPOSTController = (req,res)=>{
+    const cookies = req.cookies;
     const username =  req.body.username;
     const password = req.body.password;
     // console.log("USERNAME "+username)
     User.find({username: username})
         .then((response)=>{
-            if(!response){
+            if(response.length == 0){
                 res.status(401).json({ 'success':false, 'message':'User not found' });
             }
             else{
@@ -42,12 +43,15 @@ module.exports.loginPOSTController = (req,res)=>{
                         },
                         process.env.AUTH_REFRESH_TOKEN_SECRET,
                         {
-                            expiresIn:"1d"
+                            expiresIn:"60s"
                         }
 
                     );
+
+                    const newrefreshtokenArray = !cookies?.jwt?response[0].refreshToken:response[0].refreshToken.filter(rt=> rt != cookies.jwt);
+                    console.log(newrefreshtokenArray);
                     //saving refresh token in persistant DB
-                    User.updateOne({username:response[0].username},{ "$push": { refreshToken: Buffer.from(refreshtoken) } })
+                    User.updateOne({username:response[0].username},{ refreshToken:[...newrefreshtokenArray, refreshtoken] })
                         .then((response)=>{
                             console.log("UPDATED IN DB");
                             //storing the refresh token in the http only cookie in frontend which cannot be accessed by javascript hence safe

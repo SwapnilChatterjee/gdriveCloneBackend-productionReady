@@ -13,6 +13,7 @@ const verifyJWT = (req,res,next)=>{
             if(err){res.status(403).json({"success":false,"message":'invalid Access Token'})}//invalid access token
             req.username = decoded.username;
             req.email = decoded.email;
+            console.log(decoded);
             next();
         }
     )

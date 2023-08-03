@@ -10,10 +10,9 @@ const userschema = new mongoose.Schema({
         type: String,
         required: [true, "PASSWORD MISSING--------"]
     },
-    files:[{
-        type: String,
-
-    }],
+    email:{
+        type: String
+    },
     admin: {
         type: Boolean
     },

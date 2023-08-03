@@ -6,7 +6,6 @@ const logger = require('morgan');
 const cors = require('cors');
 const credentials = require('./middlewares/credentials');
 const corsOptions = require('./config/corsOptions')
-const { verifyJWT } = require('./middlewares/verifyJWT');
 // const mongoose = require('mongoose');
 
 const indexRouter = require('./routes/index');
@@ -47,8 +46,6 @@ app.use('/login',loginRouter);
 app.use('/refresh', refreshRouter);
 app.use('/logout', logoutRouter);
 
-//JWT verification middleware for protected routes
-// app.use(verifyJWT);
 //protected routes
 app.use('/protected', protectedRouter);
 

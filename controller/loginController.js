@@ -25,8 +25,8 @@ module.exports.loginPOSTController = (req,res)=>{
                     //create JWT
                     const accesstoken = jwt.sign(
                         {
-                            "username":response.username,
-                            "email":response.email
+                            "username":response[0].username,
+                            "email":response[0].email
                         },
                         process.env.AUTH_ACCESS_TOKEN_SECRET,
                         {
@@ -37,8 +37,8 @@ module.exports.loginPOSTController = (req,res)=>{
 
                     const refreshtoken = jwt.sign(
                         {
-                            "username":response.username,
-                            "email":response.email
+                            "username":response[0].username,
+                            "email":response[0].email
                         },
                         process.env.AUTH_REFRESH_TOKEN_SECRET,
                         {
@@ -47,7 +47,7 @@ module.exports.loginPOSTController = (req,res)=>{
 
                     );
                     //saving refresh token in persistant DB
-                    User.updateOne({username:response[0].username},{refreshToken: Buffer.from(refreshtoken)})
+                    User.updateOne({username:response[0].username},{ "$push": { refreshToken: Buffer.from(refreshtoken) } })
                         .then((response)=>{
                             console.log("UPDATED IN DB");
                             //storing the refresh token in the http only cookie in frontend which cannot be accessed by javascript hence safe

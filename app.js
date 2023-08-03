@@ -48,7 +48,7 @@ app.use('/refresh', refreshRouter);
 app.use('/logout', logoutRouter);
 
 //JWT verification middleware for protected routes
-app.use(verifyJWT);
+// app.use(verifyJWT);
 //protected routes
 app.use('/protected', protectedRouter);
 

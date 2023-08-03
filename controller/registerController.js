@@ -26,7 +26,8 @@ module.exports.registerPOSTController = (req, res) => {
                         pass: hash,
                         email: email,
                         files: [],
-                        admin: false
+                        admin: false,
+                        refreshToken: []
                     })
                     User.insertMany([temp])
                         .then((result) => {

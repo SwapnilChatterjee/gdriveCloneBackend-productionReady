@@ -18,7 +18,7 @@ const userschema = new mongoose.Schema({
         type: Boolean
     },
     refreshToken: {
-        type: String,
+        type: [String],
     }
 
     

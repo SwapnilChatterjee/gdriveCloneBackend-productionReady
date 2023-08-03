@@ -9,13 +9,13 @@ module.exports.logoutController = (req, res) => {
     //is refreshotoken in DB
     User.find({ refreshToken: Buffer.from(refreshToken) })
         .then((response) => {
-            if (!response) {
+            if (response.length == 0) {
                 res.clearCookie('jwt', { httpOnly: true });
                 res.status(204).json({ 'success': true, 'message': 'Cookie Cleared' });//forbidden
             }
             else {
                 //Delete refreshToken in db
-                User.updateOne({username:response[0].username},{refreshToken: ""})
+                User.updateOne({username:response[0].username},{ "$pull": { refreshToken: Buffer.from(refreshToken) } })
                         .then((response)=>{
                             console.log("CLEARED IN DB");
                             res.clearCookie('jwt', { httpOnly: true });

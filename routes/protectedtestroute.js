@@ -5,7 +5,7 @@ const { verifyJWT } = require('../middlewares/verifyJWT')
 router
     .route("/")
     .get(verifyJWT, (req,res)=>{
-        res.status(200).json({ 'message':'User logged in successfully' });
+        res.json({ 'message':'User logged in successfully' });
     })
 
 

@@ -1,2 +1,4 @@
 gdriveAuthenticationApi/node_modules/
 gdriveAuthenticationApi/.env
+gdriveuploadDownloadApi/node_modules/
+gdriveuploadDownloadApi/.env
